@@ -1,4 +1,4 @@
-import { Role } from '@/api/types'
+import { Role } from '@/services/types'
 
 export interface SerializedUserStore {
   userId: string
@@ -7,6 +7,10 @@ export interface SerializedUserStore {
   updatedAt: string
   role: Role
 
-  token: string
+  refreshToken: string
+}
+
+export type Tokens = {
+  accessToken: string
   refreshToken: string
 }

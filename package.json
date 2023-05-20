@@ -17,12 +17,13 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "mobx": "^6.9.0",
-    "mobx-react": "^7.6.0",
+    "mobx": "^6.8.0",
+    "mobx-react-lite": "^3.4.3",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-use": "^17.4.0",
     "typescript": "5.0.2"
   },
   "devDependencies": {

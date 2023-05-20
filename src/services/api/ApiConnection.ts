@@ -2,7 +2,7 @@ import axios from 'axios'
 import { MAX_FILE_SIZE } from '@/types/global'
 
 /** Базовый URL */
-export const appApiUrl = process.env.APP_API_URL
+export const appApiUrl = 'http://localhost:80'
 
 /** Базовые настройки axios */
 export const ApiConnection = axios.create({
@@ -33,10 +33,10 @@ ApiConnection.interceptors.response.use(
 )
 
 /** Токен авторизации */
-export const getToken = () => localStorage.getItem('PortalToken')
+export const getToken = () => localStorage.getItem('PortalAccessToken')
 
 /** Очистка токена */
-export const removeToken = () => localStorage.removeItem('PortalToken')
+export const removeToken = () => localStorage.removeItem('PortalAccessToken')
 
 /** Вставка токена в хедер запроса */
 ApiConnection.interceptors.request.use((config) => {

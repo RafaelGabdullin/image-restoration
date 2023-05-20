@@ -1,40 +1,57 @@
-import { Role, getEmptyRole } from '@/api/types'
+import { Role, getEmptyRole } from '@/services/types'
 import { makeAutoObservable } from 'mobx'
-import { SerializedUserStore } from './types'
+import { SerializedUserStore, Tokens } from './types'
+import { IRootStore } from '../RootStore/RootStore'
+import { LoginRequest } from '@/services/api/AuthentificationService/Authentification.types'
+import AuthentificationService from '@/services/api/AuthentificationService/Authentification.service'
+import { getToken } from '@/services/api/ApiConnection'
 
 class UserStore implements SerializedUserStore {
+  rootStore: IRootStore
+
   userId: string
   username: string
   createdAt: string
   updatedAt: string
   role: Role
 
-  token: string
   refreshToken: string
 
-  constructor() {
-    makeAutoObservable(this)
+  constructor(rootStore: IRootStore) {
+    this.rootStore = rootStore
     this.userId = ''
     this.username = ''
     this.createdAt = ''
     this.updatedAt = ''
-    this.token = ''
     this.refreshToken = ''
     this.role = getEmptyRole()
+    makeAutoObservable(this)
   }
 
-  hydrate(serializedStore: SerializedUserStore) {
-    this.userId = serializedStore.userId
-    this.username = serializedStore.username
-    this.createdAt = serializedStore.createdAt
-    this.updatedAt = serializedStore.updatedAt
-    this.role = serializedStore.role
-    this.token = serializedStore.token
-    this.refreshToken = serializedStore.refreshToken
+  hydrate(serializedStore: Partial<SerializedUserStore>) {
+    this.userId = serializedStore.userId ?? ''
+    this.username = serializedStore.username ?? ''
+    this.createdAt = serializedStore.createdAt ?? ''
+    this.updatedAt = serializedStore.updatedAt ?? ''
+    this.role = serializedStore.role ?? getEmptyRole()
+    this.refreshToken = serializedStore.refreshToken ?? ''
+  }
+
+  static updateTokens(tokenData: Partial<Tokens>) {
+    if (tokenData.accessToken) localStorage.setItem('PortalAccessToken', tokenData.accessToken)
+    if (tokenData.refreshToken) localStorage.setItem('PortalAccessToken', tokenData.refreshToken)
+  }
+
+  async loginHandler(userData: LoginRequest): Promise<void> {
+    const data = await AuthentificationService.login(userData)
+    UserStore.updateTokens({
+      accessToken: data.access_token,
+      refreshToken: data.refresh_token,
+    })
   }
 
   get isAuthorized() {
-    return !!this.userId
+    return !!this.userId || !!getToken()
   }
 }
 
