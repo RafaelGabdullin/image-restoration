@@ -6,8 +6,6 @@ export interface SerializedUserStore {
   createdAt: string
   updatedAt: string
   role: Role
-
-  refreshToken: string
 }
 
 export type Tokens = {
