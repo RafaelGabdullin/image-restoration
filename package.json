@@ -8,6 +8,7 @@
     "lint": "next lint --fix --dir src"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",

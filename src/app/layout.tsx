@@ -1,6 +1,7 @@
 import { StoreProvider } from '@/stores/StoreProvider'
 import './styles/globals.css'
 import { InitialState } from '@/stores/RootStore/RootStore'
+import Header from '@/components/Layout/Header'
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,7 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body>
         <StoreProvider initialState={initialState}>
-          <div className="h-screen w-screen">{children}</div>
+          <Header />
+          <div className="h-screen w-screen  p-[3rem]">{children}</div>
         </StoreProvider>
       </body>
     </html>

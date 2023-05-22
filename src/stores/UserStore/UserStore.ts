@@ -65,6 +65,10 @@ class UserStore implements SerializedUserStore {
     await this.loginHandler(userData)
   }
 
+  async deleteHadler(username: string): Promise<void> {
+    await UserService.delete(username)
+  }
+
   get isAuthorized() {
     return !!this.userId || !!getToken()
   }

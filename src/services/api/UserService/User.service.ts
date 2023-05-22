@@ -15,6 +15,11 @@ class UserService {
     const response = await ApiConnection.get<UserSchema>(`${this.RoutePrefix}/me`)
     return response.data
   }
+
+  static async delete(username: string) {
+    const response = await ApiConnection.delete(`${this.RoutePrefix}/${username}`)
+    return response.data
+  }
 }
 
 export default UserService

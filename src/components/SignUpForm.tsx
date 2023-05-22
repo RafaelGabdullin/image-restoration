@@ -35,7 +35,6 @@ const SignUpForm: React.FC = () => {
 
   const submitForm = async () => {
     await userStore.signUpHadler(formData)
-    console.log('1234')
     router.push('/')
     console.log(toJS(userStore))
   }
