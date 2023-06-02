@@ -96,6 +96,15 @@ class UserStore implements SerializedUserStore {
   get isAuthorized() {
     return !!this.userId || !!getToken()
   }
+
+  static removeTokens() {
+    localStorage.removeItem('PortalAccessToken')
+    localStorage.removeItem('PortalRefreshToken')
+  }
+
+  logoutHandler() {
+    UserStore.removeTokens()
+  }
 }
 
 export default UserStore
