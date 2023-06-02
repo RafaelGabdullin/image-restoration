@@ -18,7 +18,7 @@ const Dropzone: React.FC = () => {
     </li>
   ))
   return (
-    <div className="flex min-h-[400px] w-full flex-col gap-6 border-4 border-dashed border-neutral-300">
+    <div className="flex min-h-[400px] w-full flex-col gap-6 rounded-xl border-4 border-dashed  border-neutral-300">
       <div {...getRootProps({ className: 'dropzone text-center p-[2rem] h-full' })}>
         <input {...getInputProps()} />
         {!acceptedFiles.length && (

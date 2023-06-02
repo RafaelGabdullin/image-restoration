@@ -15,10 +15,10 @@ const initialState: InitialState = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="h-screen w-screen overflow-x-hidden">
         <StoreProvider initialState={initialState}>
           <Header />
-          <div className="h-screen w-screen  p-[3rem]">{children}</div>
+          {children}
         </StoreProvider>
       </body>
     </html>

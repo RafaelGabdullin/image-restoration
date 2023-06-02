@@ -4,7 +4,6 @@ import { SerializedUserStore, Tokens } from './types'
 import { IRootStore } from '../RootStore/RootStore'
 import { LoginRequest } from '@/services/api/AuthentificationService/Authentification.types'
 import AuthentificationService from '@/services/api/AuthentificationService/Authentification.service'
-import { getToken } from '@/services/api/ApiConnection'
 import { SignUpRequest, UserSchema } from '@/services/api/UserService/User.types'
 import UserService from '@/services/api/UserService/User.service'
 import { StoreStatuses } from '../types'
@@ -94,16 +93,27 @@ class UserStore implements SerializedUserStore {
   }
 
   get isAuthorized() {
-    return !!this.userId || !!getToken()
+    return !!this.userId
   }
 
   static removeTokens() {
     localStorage.removeItem('PortalAccessToken')
     localStorage.removeItem('PortalRefreshToken')
   }
+  clear() {
+    this.status = StoreStatuses.fullfilled
+    this.userId = ''
+    this.username = ''
+    this.createdAt = ''
+    this.updatedAt = ''
+    this.role = getEmptyRole()
+    this.imagesToUpload = []
+    this.processedImagesLinks = []
+  }
 
   logoutHandler() {
     UserStore.removeTokens()
+    this.clear()
   }
 }
 

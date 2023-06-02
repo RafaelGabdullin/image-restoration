@@ -4,12 +4,20 @@ import Link from 'next/link'
 import Button from '../ui/Button/Button'
 import { headerItems } from './types'
 import { useStore } from '@/stores/StoreProvider'
+import { useRouter } from 'next/navigation'
+import { observer } from 'mobx-react-lite'
 
 const Sample: React.FC = () => {
   const { userStore } = useStore()
+  const router = useRouter()
+
+  const logoutHandler = () => {
+    userStore.logoutHandler()
+    router.push('/')
+  }
 
   return (
-    <div className="relative flex w-full items-center justify-between bg-white py-2 text-neutral-600 shadow-lg md:flex-wrap md:justify-start">
+    <div className="fixed flex w-full items-center justify-between bg-white py-2 text-neutral-600 shadow-lg md:flex-wrap md:justify-start">
       <div className="flex w-full flex-wrap items-center justify-between px-10">
         <div className="flex items-center">
           <button className="border-0 bg-transparent px-2 text-xl leading-none transition-shadow duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 dark:hover:text-white dark:focus:text-white lg:hidden"></button>
@@ -33,26 +41,23 @@ const Sample: React.FC = () => {
             </Link>
           </div>
         ) : (
-          <div className="gax-[0.5rem] flex">
+          <div className="flex items-center gap-x-[1rem]">
             <svg
-              width="70"
-              height="76"
-              viewBox="0 0 70 76"
+              viewBox="0 0 71 71"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="h-[3rem] w-[3rem]"
             >
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
-                d="M58.8504 64.8994C62.2688 61.4253 64.9921 57.2297 66.8519 52.5721C68.7117 47.9145 69.6684 42.8938 69.663 37.8204C69.663 17.2737 54.2643 0.618774 35.2673 0.618774C16.2703 0.618774 0.871605 17.2737 0.871605 37.8204C0.866178 42.8938 1.82293 47.9145 3.6827 52.5721C5.54248 57.2297 8.26576 61.4253 11.6842 64.8994C18.0586 71.4121 26.4985 75.0348 35.2673 75.022C44.0361 75.0348 52.476 71.4121 58.8504 64.8994ZM14.6122 59.9964C17.089 56.645 20.232 53.9401 23.8078 52.0826C27.3837 50.2251 31.3005 49.2628 35.2673 49.2671C39.2342 49.2628 43.1509 50.2251 46.7268 52.0826C50.3026 53.9401 53.4456 56.645 55.9224 59.9964C53.2202 62.9485 50.0029 65.2909 46.4573 66.8877C42.9116 68.4846 39.1081 69.3041 35.2673 69.2987C31.4265 69.3041 27.623 68.4846 24.0773 66.8877C20.5317 65.2909 17.3144 62.9485 14.6122 59.9964ZM48.4964 26.3738C48.4964 30.1686 47.1026 33.8079 44.6217 36.4913C42.1408 39.1746 38.7759 40.6821 35.2673 40.6821C31.7587 40.6821 28.3938 39.1746 25.9129 36.4913C23.432 33.8079 22.0382 30.1686 22.0382 26.3738C22.0382 22.579 23.432 18.9396 25.9129 16.2562C28.3938 13.5729 31.7587 12.0654 35.2673 12.0654C38.7759 12.0654 42.1408 13.5729 44.6217 16.2562C47.1026 18.9396 48.4964 22.579 48.4964 26.3738Z"
+                d="M59.6029 60.6592C63.0814 57.3907 65.8525 53.4435 67.745 49.0615C69.6374 44.6796 70.611 39.956 70.6054 35.1828C70.6054 15.8521 54.9362 0.182861 35.6055 0.182861C16.2747 0.182861 0.605492 15.8521 0.605492 35.1828C0.599969 39.956 1.57353 44.6796 3.46598 49.0615C5.35843 53.4435 8.12956 57.3907 11.608 60.6592C18.0945 66.7865 26.6826 70.1948 35.6055 70.1828C44.5283 70.1948 53.1165 66.7865 59.6029 60.6592ZM14.5875 56.0464C17.1078 52.8933 20.306 50.3485 23.9447 48.601C27.5833 46.8534 31.5689 45.9481 35.6055 45.9521C39.642 45.9481 43.6276 46.8534 47.2663 48.601C50.9049 50.3485 54.1031 52.8933 56.6234 56.0464C53.8738 58.8238 50.6 61.0276 46.992 62.5299C43.3841 64.0323 39.5137 64.8033 35.6055 64.7982C31.6972 64.8033 27.8269 64.0323 24.2189 62.5299C20.6109 61.0276 17.3372 58.8238 14.5875 56.0464V56.0464ZM49.067 24.4136C49.067 27.9838 47.6487 31.4078 45.1242 33.9324C42.5997 36.4569 39.1757 37.8752 35.6055 37.8752C32.0353 37.8752 28.6113 36.4569 26.0867 33.9324C23.5622 31.4078 22.1439 27.9838 22.1439 24.4136C22.1439 20.8434 23.5622 17.4194 26.0867 14.8949C28.6113 12.3704 32.0353 10.9521 35.6055 10.9521C39.1757 10.9521 42.5997 12.3704 45.1242 14.8949C47.6487 17.4194 49.067 20.8434 49.067 24.4136V24.4136Z"
                 fill="#97A3B6"
               />
             </svg>
-            <Link href={'/about'}>
-              <Button onClick={() => userStore.deleteHadler} style="outlinePrimary">
-                Logout
-              </Button>
-            </Link>
+            <Button className="h-fit" onClick={logoutHandler} style="outlinePrimary">
+              Logout
+            </Button>
           </div>
         )}
       </div>
@@ -60,4 +65,4 @@ const Sample: React.FC = () => {
   )
 }
 
-export default Sample
+export default observer(Sample)
