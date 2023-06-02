@@ -2,7 +2,9 @@ import axios from 'axios'
 import { MAX_FILE_SIZE, isServer } from '@/types/global'
 
 /** Базовый URL */
-export const appApiUrl = 'http://localhost:80'
+export const appApiUrl = 'http://localhost:80/api'
+
+export const appStaticUrl = 'http://localhost:80/static'
 
 /** Базовые настройки axios */
 export const ApiConnection = axios.create({

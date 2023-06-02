@@ -3,7 +3,7 @@
 import Button from '@/components/ui/Button/Button'
 import Dropzone from '@/components/ui/Dropzone'
 import Spinner from '@/components/ui/Spinner'
-import { appApiUrl } from '@/services/api/ApiConnection'
+import { appApiUrl, appStaticUrl } from '@/services/api/ApiConnection'
 import { useStore } from '@/stores/StoreProvider'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
             <div className="flex min-h-[400px] w-full flex-col gap-[2.5rem] rounded-xl border-4 border-dashed border-neutral-300 p-[2rem]">
               {userStore.processedImagesLinks.map((link) => (
                 <div className="flex flex-col gap-y-[1rem]" key={link}>
-                  <img src={`${appApiUrl}${link}`} />
+                  <img src={`${appStaticUrl}${link}`} />
                   <Button onClick={() => downloadFileHandler(`${appApiUrl}${link}`, link)}>
                     Скачать фотографию
                   </Button>
